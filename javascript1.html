@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title>Java Script</title>
+    </head>
+
+    <script>
+      var variavel1 = 1 ;
+    //   var variavel2 = '3' ;
+      var variavel3 = true ;
+
+
+
+    function funcao()
+    {
+        // var array = [1,2,'A',4,'B'];
+       var array = []
+
+        array[0] = 1; 
+        array[1] = 2; 
+        array[2] = 3; 
+        array[3] = 4; 
+        array[4] = 5; 
+        array[10] = 6; 
+     
+        console.log(array.length);
+
+         console.log(array[7]);
+        // let variavel2 = 100;
+        // console.log(variavel2);
+        
+        //   if(true){
+        //   var variavel1 = 100;
+        //   }
+        array.push('C');
+        // array.pop(0);
+        var index = array.indexOf(3);
+        if(index != -1)
+        {
+         array.splice(index,1);  //remove da fila (index, quantidade a ser removida)
+        }
+        array.shift();
+
+
+        for(i in array){  /*For in checa se eh undefined e não mostra*/
+           console.log(array[i]);
+        }
+    }
+    funcao();
+
+
+    // function funcao1(x,y=0)
+    // {
+    //      console.log(x,y);
+    // }
+
+    // var array = [1,2,'A'];
+
+    // funcao1(...array);
+
+
+    // console.log(variavel2);
+
+    // metodo1 = () => { console.log('Aqui'); }  /*arrow function */
+
+    // metodo1();
+
+
+    //   var i = 0;
+    //    do{
+    //        console.log(++i);
+    //    }
+    //    while(i < 5)
+
+
+    //   for(var i = 0; i < 10; i++)
+    //   {
+    //       console.log(i);
+    //   }
+
+//    switch(variavel2)
+//    {
+//        case '2' : 
+//        console.log('e 2');
+//        break;
+//        case '3' : 
+//        console.log('e 3');
+//        break;
+//        default: console.log('não e 2');
+//    }
+
+
+    //   if(variavel1  == variavel2 ){
+    //     console.log( 1 * '3');
+       
+    //   }
+
+    //   if(variavel1) {
+    //   console.log("true rapaiz");
+    //   }
+    //  else
+    //  {
+    //     console.log("false rapaiz");
+    //  }
+    
+
+    //   console.log(variavel);
+    //   console.log(variavel1);
+    //   console.log(variavel2);
+    </script>
+
+    <body>
+    
+    </body>
+</html>

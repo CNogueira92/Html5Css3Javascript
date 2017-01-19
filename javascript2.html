@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Java Script DOM</title>
+    <!--<script>
+    function carregar(){
+       var elemento = document.getElementById('paragrafo1');
+       console.log(elemento.innerText);
+    }
+    </script>-->
+    </head>    
+    <!--<body onload="carregar()">-->
+    <body: 
+    <p id="paragrafo1"> 
+        People computação
+    </p>
+    </body>
+
+
+    <script>
+
+       var elemento = document.getElementById('paragrafo1');
+
+       //elemento.innerText = 'teste'; //observer é disparado e renderiza o elemento de novo
+
+       elemento.innerHTML =  "<p style='color:red;'>Eita</p>";
+       console.log(elemento.innerText);
+   
+    </script>
+
+
+</html>
