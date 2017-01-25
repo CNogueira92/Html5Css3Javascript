@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <style>
+        input:invalid  {
+            border-color: red;
+        }
+          input:valid  {
+            border-color: green;
+        }
+        
+        </style>  
+        <script>
+            function validaForm(){
+                var email = document.getElementById("txtEmail");
+
+                var existe = true;
+                if(existe){
+                    email.setCustomValidity('Este e-mail já esta cadastrado.');
+                    return false;
+                }
+                else
+                {
+                    email.setCustomValidity('');
+                    return true;
+                }
+
+            }
+        </script> 
+    </head>
+    <body>
+     <form id="theForm" onsubmit="return validaForm() ">
+            Color: <input type="color" >
+            <br/><br/> 
+            Number: <input type="number" step="2" placeholder="Digite o número" min="20" max="50" > <!-- Step sobe de acordo com a qtd q informar-->
+            <br/><br/> 
+            Date: <input type="date"> <!--required-->
+            <br/><br/> 
+            Time: <input type="time">
+            <br/><br/> 
+            Range: <input type="range">
+            <br/><br/> 
+            Email: <input type="email" id="txtEmail">
+            <br/><br/> 
+            URL: <input type="url">
+            <br/><br/> 
+            phone: <input type="tel"> <!--required pattern="\d{3}\s\d{4,5}-\d{4}">-->
+            <!--<br/><br/> 
+            Month: <input type="month">
+            <br/><br/> 
+            Search: <input type="search">
+            <br/><br/> 
+            Week: <input type="week">
+            <br/><br/> 
+            Progress: <progress ></progress>
+            <br/><br/> 
+            Datalist: <input type="text" list="paises">
+            <datalist id="paises">
+                <option value="EUA"></option>
+                <option value="Brasil"></option>
+                <option value="Argentina"></option>
+                <option value="Mexico"></option>
+                <option value="Egito"></option>
+                <option value="Israel"></option>              
+            </datalist>-->
+            <br/><br/> 
+            <button type="submit">Enviar</button>
+      </form>
+    </body>
+</html>

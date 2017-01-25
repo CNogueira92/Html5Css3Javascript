@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Jquery</title>
+       <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.js"></script>
+       <script type="text/javascript">
+       $(document).ready(function()
+       {
+        //    var elemento = $("#p1");
+        //    var texto = elemento.text();
+        //    var novoTexto = 'Novo paragrafo1';
+        //    elemento.text(novoTexto);
+        //    console.log(texto + ' - ' + novoTexto);
+
+        //    var elemento = $("#txt1");
+        //    var texto = elemento.val();
+        //    var novoTexto = 'Novo Campo de Texto';
+        //    elemento.val(novoTexto);
+        //    console.log(`Valor ${elemento.val()}`);
+            // var elemento = $("#div1"); 
+            //  var novoHtml = '<p>Paragrafo</p>';
+            // elemento.append(novoHtml); //Insere no final do elemento
+             //elemento.prepend(novoHtml); //Insere no começo do elemento
+            //elemento.css('color','red');
+           // elemento.attr('style',''); // ou prop = atributos 
+
+             //Add Evento
+             $('#btn1').on('click',function(){ //Arindo função anonima - ngm mais acessa
+                //alert('ok');
+                $('#div1').hide(); //Esconde o Elemento
+             });
+            
+            // $('#btn1').off(); //Remove todos od Evento criado
+           // $('#btn1').off('click'); //Remove Evento criado
+
+            // console.log(elemento.html());
+
+       }); 
+       </script>
+    </head>
+    <body>
+    <!--<p id="p1">Paragrafo 1</p>-->
+    <!--<input id="txt1" type="text" value="Campo de Texto">-->
+     <div id="div1">
+         <ul>
+             <li>Opção 1</li>
+             <li>Opção 2</li>
+             <li>Opção 3</li>
+         </ul> 
+         <button id="btn1">Clique aqui</button></button>     
+            </div>
+
+    </body>
+</html>
