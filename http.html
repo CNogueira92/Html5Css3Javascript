@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+         <script>
+
+         //nativo
+            //  var requisicao = new XMLHttpRequest();
+            //  requisicao.open('GET','https://www.google.com.br/search?brazil');
+             
+            //  requisicao.onreadystatechange = function()
+            //  {
+            //      if(requisicao.readyState == 4){
+            //         if(requisicao.status == 200)
+            //         {
+            //         var elemento= documento.getElementById('content');
+            //         elemento.innerHTML = requisicao.responseText;
+            //         }
+            //      }
+            //  }
+            //  requisicao.send(null);
+
+        //Jquery
+            $(document).ready(function(){
+
+         ///GET
+                // $.get('https://www.microsoft.com/pt-br',function(data){
+                //     $('#content').html(data);
+                // }).fail(function(erro){
+                //     console.log(erro);
+                // });
+
+            //  $.get('https://www.microsoft.com/pt-br')
+            //  .done(function(data)){
+            //         $('#content').html(data);
+            //     }).fail(function(erro){
+            //         console.log(erro);
+            //     });
+            
+            ///POST
+
+            //    $.post('https://www.microsoft.com/pt-br','parametros',function(data){
+            //         $('#content').html(data);0                
+            //     });
+
+            //GET
+              // $('#content').load('https://www.microsoft.com/pt-br');
+             // $('#content').load('https://www.microsoft.com/pt-br #primaryArea');
+
+
+
+          ///Json
+            var FlikerAPI="http://api.flickr.com/services/feeds/photos_public.gnre?jsoncallback=?";
+           $.getJSON(FlickerAPI,{
+               tags:"brazil",
+               tagmode: "any",
+               format: "json"
+           }).done(function(data){
+               $each(data.item, function(i,item){
+                $("<img>").attr("src",item.media.m).appendTo('#context');
+               });
+           }).fail(function(){
+               $('#content').html('<span>erro ao carregar o conteudo.</span>');
+           });
+          
+        });
+        </script>
+       </head>
+    <body>
+    <div id="content">       
+    </div>
+    </body>
+</html>

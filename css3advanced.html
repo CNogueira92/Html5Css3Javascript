@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+       <style>
+       .main{
+           width: 500px;
+           height: 200px;
+           border: 1px solid red;
+           display: flex;
+           flex-flow: column;
+
+       }
+       .main div{
+           border: 1px solid blue;
+           margin: 10px;    
+       }
+
+        .main div.primeiro{
+           order:3;
+       }
+        .main div.segundo{
+           order:1;
+       }
+       .main div.terceiro{
+           order:2;
+       }
+       </style>
+    </head>
+    <body>
+    <div class="main">
+     <div class="primeiro">primeiro</div>
+     <div class="segundo">segundo</div>
+     <div class="terceiro">terceiro</div>
+    </div>
+    </body>
+</html>
