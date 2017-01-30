@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Objetos</title>
+        <meta charset="UTF-8">
+        <script>
+         //Objeto Simples
+            // var obj={};
+            // obj.id=90;
+            // obj.name="People Computação";
+            // obj.toString = function(){
+
+            //     return this.id + ' '+ this.name;
+            // }
+        
+        //Notação literal de objeto
+            //  var obj={
+            //        _id:90, //Tudo que é undeline é privado devido a convenção (Notação)
+            //        name:"People Computação",
+            //        toString: function(){
+            //             return this.id + ' '+ this.name;
+            //         }
+            // };
+          
+          
+        // var Carro= function(marca,modelo,ano){
+        //          this._id=Math.random()*100000000000000000;
+        //          this.marca=marca; 
+        //          this.modelo=modelo; 
+        //          this.ano=ano || 0; 
+        //          this.toString=function(){
+        //              return this._id + ' '
+        //                    + this.marca + ' '
+        //                    + this.modelo + ' '
+        //                    + this.ano;
+        //          }
+        //     };
+
+            //Usando propotype
+              var Carro= function(marca,modelo,ano){
+                 var _id=Math.random()*100000000000000000; //Declarano uma variavel de escopo
+                 this.getId = function (){
+                     return _id;               
+                 }
+                 this.marca = marca;
+                 this.modelo=modelo; 
+                 this.ano=ano || 0;   
+                 
+                 };
+
+                         Carro.prototype={
+                 toString:function(){
+                     return this.getId() + ' '
+                           + this.marca + ' '
+                           + this.modelo + ' '
+                           + this.ano;
+                        },
+                 ligar:function(){
+                     return this.toString() +' ligado ';
+                 }       
+               };
+
+                         //this.BMW = new BMW (modelo,ano)
+                 //  this.modelo=modelo; 
+                //  this.ano=ano || 0;  
+                //  this.toString=function(){
+                //      return _id + ' '
+                //            + this.marca + ' '
+                //            + this.modelo + ' '
+                //            + this.ano;
+                //         }  
+
+                 var BMW = function(modelo,ano){
+                 this.marca = 'BMW'
+                 this.modelo=modelo; 
+                 this.ano=ano || 0;          
+                 }
+
+                 BMW.prototype = new Carro();
+                 BMW.prototype.constructor= BMW;
+
+                  BMW.prototype.eSuperCarro= function(){
+                          return true;
+                  }
+             
+            //   Carro.prototype.toString=function(){
+            //          return this._id + ' '
+            //                + this.marca + ' '
+            //                + this.modelo + ' '
+            //                + this.ano;
+            //   };
+               
+
+        
+                
+     
+
+        //    var c = new Carro();
+        //     c.marca='BMW'; 
+        //     c.modelo='3201'; 
+        //     c.ano=2017; 
+
+           //var c = new Carro('BMW','3201',2017);
+            var c = new BMW('320i',2017);
+            console.log(c);
+           
+        </script>
+         </head>
+    <body>
+    
+    </body>
+</html>
