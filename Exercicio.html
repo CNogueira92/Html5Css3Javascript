@@ -1,19 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title></title>
-       <script>
-          //*atributo
-          //+metodo
-            //Conta
-            //{*Cliente,*numero,+saldo}
-            //Conta Corrente
-            //{+sacar(valor), +depositar(valor)}
-            //ContaPoupanca
-            //(*juros,+aplicar(valor),+resgate(valor), + rendimento)
-       </script>
-    </head>
-    <body>
+<html>
     
+    <head>
+        <script>
+        // Conta 
+// (*cliente, *numero, +saldo)
+var Conta = function(cliente, numero) {
+        this.cliente = cliente || '';
+        this.numero = numero || 0;
+        this._saldo = 0;
+    }
+
+Conta.prototype.saldo = function() {
+    return this._saldo;
+}
+
+// ContaCorrente 
+// (*taxaJuros, +sacar(valor), +depositar(valor))
+var ContaCorrente = function(cliente, numero, taxaJuros) {
+        this.cliente = cliente || '';
+        this.numero = numero || 0;
+        this.taxaJuros = taxaJuros || 5.0;
+    }
+
+ContaCorrente.prototype = new Conta();
+ContaCorrente.prototype.constructor = ContaCorrente;
+ContaCorrente.prototype.sacar = function(valor) {
+    var novoSaldo = this._saldo - valor;
+
+    if (novoSaldo < 0) {
+        novoSaldo = novoSaldo - (valor * (this.taxaJuros / 100));
+    }
+
+    this._saldo = novoSaldo;
+}
+ContaCorrente.prototype.depositar = function(valor) {
+    this._saldo += valor;
+}
+
+// ContaPoupanca 
+// (*taxaRendimento, +aplicar(valor), +resgate(valor), +rendimento)
+var ContaPoupanca = function(cliente, numero, taxaRendimento) {
+        this.cliente = cliente || '';
+        this.numero = numero || 0;
+        this.taxaRendimento = taxaRendimento || 0.69;
+    }
+
+ContaPoupanca.prototype = new Conta();
+ContaPoupanca.prototype.constructor = ContaPoupanca;
+ContaPoupanca.prototype.aplicar = function(valor) {
+    this._saldo = this._saldo + valor + (valor * this.taxaRendimento);
+}
+ContaPoupanca.prototype.resgate = function(valor) {
+    this._saldo = this._saldo - valor;
+}
+
+// TESTE
+var cc = new ContaCorrente('cliente CC 1', 101010);
+var cp = new ContaPoupanca('cliente CP 1', 101010);
+console.log(cc);
+console.log(cp);
+        </script>
+    </head>
+    
+    <body>
     </body>
+
 </html>
