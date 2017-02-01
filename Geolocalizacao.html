@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Geo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../jquery.js"></script>
+
+    <script>
+        if (!navigator.geolocation) {
+            alert('Não suporta geolocalizacao');
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+
+                $('<img>').attr('src', 'https://maps.googleapis.com/maps/api/staticmap?center=' +
+                        position.coords.latitude + ',' + position.coords.longitude + '&zoom=16&size=300x300&sensor=false')
+                    .appendTo('#mapa')
+
+                console.log(position);
+            },
+            function(error) {
+                console.log(error);
+            }, {
+                enableHighAccuracy: true,
+                timeout: 5000
+            }
+        )
+    </script>
+</head>
+
+<body>
+    <div id="mapa">
+
+    </div>
+</body>
+
+</html>

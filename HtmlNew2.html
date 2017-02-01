@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Html5 file</title>
+    <meta charset="UTF-8">
+    <script src="../jquery.js"></script>
+    <script>
+        if (!(window.Blob && window.File && window.FileList && window.FileReader)) {
+            alert('Navegador não possui suporte FileReader');
+        }
+
+        $(document).ready(function() {
+
+            function handleDragOver(evt) {
+                evt.stopPropagation();
+                evt.preventDefault();
+                evt.dataTransfer.dropEffect = 'copy';
+            };
+
+            function handleDrop(evt) {
+
+                evt.stopPropagation();
+                evt.preventDefault();
+
+                var files = evt.dataTransfer.files;
+
+
+                for (var i = 0, f; f = files[i]; i++) {
+
+                    //renderiza
+                    var reader = new FileReader();
+                    //Ele carrega o arquivo e assim que tiver pronto o carregmento libera o conteudo
+                    reader.onload = function(e) {
+                        $('<img>')
+                            .attr('width', '500px')
+                            .attr('height', '500px')
+                            .attr('src', e.target.result).appendTo('#images');
+                        // console.log(e.target);;
+                        // console.log(e.target.result);
+                    };
+
+                    // reader.readAsText(f);
+                    reader.readAsDataURL(f);
+                    console.log(f.name);
+                }
+            };
+
+            var dropZone = document.getElementById('images');
+            dropZone.addEventListener('dragover', handleDragOver, false);
+            dropZone.addEventListener('drop', handleDrop, false);
+
+
+        });
+    </script>
+
+    <style>
+        div {
+            border: 2px solid red;
+            width: 100px;
+            height: 100px;
+            padding: 10px
+        }
+        
+        img {
+            border: 2px solid #000;
+            margin: 5px;
+            height: 75px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="images">
+
+    </div>
+
+</body>
+
+</html>

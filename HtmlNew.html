@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Html5 file</title>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script>
+        if (!(window.Blob && window.File && window.FileList && window.FileReader)) {
+            alert('Navegador não possui suporte FileReader');
+        }
+
+        $(document).ready(function() {
+            $('#files').on('change', function(evt) {
+                var files = evt.target.files;
+
+                var output = [];
+                for (var i = 0, f; f = files[i]; i++) {
+
+                    // output.push('<li>', escape(f.name), ' (', f.type || 'n/a', ') ', f.size, ' bytes, last modifed: ', f.lastModifiedDate ?
+                    //     f.lastModifiedDate.toLocaleDateString() :
+                    //     'n/a', '</li>');
+                    // if (!f.type.match('image.*')) {
+                    //     continue;
+                    // }
+
+                    //renderiza
+                    var reader = new FileReader();
+                    //Ele carrega o arquivo e assim que tiver pronto o carregmento libera o conteudo
+                    reader.onload = function(e) {
+                        $('<img>')
+                            .attr('width', '500px')
+                            .attr('height', '500px')
+                            .attr('src', e.target.result).appendTo('#images');
+                        // console.log(e.target);;
+                        // console.log(e.target.result);
+                    };
+
+                    // reader.readAsText(f);
+                    // reader.readAsDataURL(f);
+                    console.log(f.name);
+                }
+                $('#out').html('<ul>' + output.join('') + '</ul>')
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <form>
+        <input id="files" type="file" multiple>
+        <output id="out"></output>
+        <div id="images">
+
+        </div>
+    </form>
+</body>
+
+</html>
