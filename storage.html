@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Session Storage</title>
+    <meta charset="UTF-8">
+    <script src="../jquery.js"></script>
+
+    <script>
+        if (typeof(Storage) == 'undefined') {
+            alert('navegador não suporta Storage');
+        }
+
+        $(document).ready(function() {
+            $('#btnAdd').on('click', function() {
+                var key = $('#txtkey').val();
+                var value = $('#txtvalue').val();
+                var storage = getStorage();
+
+                storage.setItem(key, value);
+            });
+
+            $('#btnList').on('click', function() {
+                var storage = getStorage();
+
+                for (var idx in storage) {
+                    console.log(storage[idx]);
+                }
+            });
+
+
+            $('#btnDel').on('click', function() {
+                var key = $('#txtkey').val();
+                var storage = getStorage();
+
+                storage.removeItem(key);
+            });
+
+
+            $('#btnUpd').on('click', function() {
+                var key = $('#txtkey').val();
+                var value = $('#txtvalue').val();
+                var storage = getStorage();
+
+                if (storage.getItem(key)) {
+                    storage.setItem(key, value);
+                }
+            });
+
+
+
+            function getStorage() {
+                return sessionStorage;
+            }
+        })
+    </script>
+</head>
+
+<body>
+    <div>
+        <input id='txtkey' type="text" placeholder='key'>
+        <input id='txtvalue' type="text" placeholder='value'>
+        <br> <br>
+        <input type="button" id='btnAdd' value='adicionar'>
+        <input type="button" id='btnDel' value='remover'>
+        <input type="button" id='btnUpd' value='alterar'>
+        <input type="button" id='btnList' value='listar'>
+    </div>
+</body>
+
+</html>

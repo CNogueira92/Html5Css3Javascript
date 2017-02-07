@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>web sql</title>
+    <meta charset="UTF-8">
+    <script src="../jquery.js"></script>
+
+    <script>
+        var db = openDatabase('MyWebDb', 1, 'MyWebDb', 2 * 1024 * 1024);
+
+
+        if (!db) {
+            alert('Erro ao criar DB');
+        }
+
+        // db.transaction(function(transaction) {
+        //     transaction.executeSql('DROP TABLE IF EXISTS Products', null, function(transaction, result) {
+        //         console.log('Tabela removida com Sucesso');
+        //     }, function(transaction, error) {
+        //         console.log('Erro ao remover tabela. ' + error);
+        //     });
+        // });
+
+        //tarnsaction cria transação e passa para o callback
+        //$ parametros
+
+        db.transaction(function(transaction) {
+            transaction.executeSql('CREATE TABLE IF NOT EXISTS Products(id UNIQUE, name TEXT)', null, function(transaction, result) {
+                console.log('Tabela Criada com Sucesso');
+            }, function(transaction, error) {
+                console.log('Erro ao criar tabela. ' + error);
+            });
+        });
+
+
+        $(document).ready(function() {
+            $('#btnAdd').on('click', function() {
+                var key = $('#txtkey').val();
+                var value = $('#txtvalue').val();
+                db.transaction(function(transaction) {
+                    transaction.executeSql('INSERT INTO Products VALUES(?,?)', [key, value], function(transaction, result) {
+                        console.log('Inserido Sucesso');
+                    }, function(tr, error) {
+                        console.log('Erro ao inserir tabela. ' + error);
+                    });
+                });
+
+            });
+
+            $('#btnList').on('click', function() {
+                var key = $('#txtkey').val();
+                db.transaction(function(transaction) {
+                    transaction.executeSql('SELECT *FROM Products', null, function(transaction, result) {
+                        for (var i = 0; i < result.rows.length; i++) {
+                            console.log(result.rows.item(i)['id'] + ' - ' + result.rows.item(i)['name']);
+                        }
+                    }, function(tr, error) {
+                        console.log('Erro ao listar dados. ' + error);
+                    });
+
+                });
+
+
+            });
+
+
+            $('#btnDel').on('click', function() {
+                var key = $('#txtkey').val();
+                db.transaction(function(transaction) {
+                    transaction.executeSql('DELETE FROM Products WHERE id = ?', [key], function(transaction, result) {
+                        console.log('Excluido Sucesso');
+                    }, function(tr, error) {
+                        console.log(error);
+                    });
+                });
+            });
+
+
+            $('#btnUpd').on('click', function() {
+                var key = $('#txtkey').val();
+                var value = $('#txtvalue').val();
+                db.transaction(function(transaction) {
+                    transaction.executeSql('UPDATE Products SET name = ? WHERE id = ?', [value, key], function(transaction, result) {
+                        console.log('Registro atualizado com Sucesso');
+                    }, function(tr, error) {
+                        console.log(error);
+                    });
+                });
+            });
+
+
+
+            // function getStorage() {
+            //     return localStorage;
+            // }
+        })
+    </script>
+</head>
+
+<body>
+    <div>
+        <input id='txtkey' type="text" placeholder='key'>
+        <input id='txtvalue' type="text" placeholder='value'>
+        <br> <br>
+        <input type="button" id='btnAdd' value='adicionar'>
+        <input type="button" id='btnDel' value='remover'>
+        <input type="button" id='btnUpd' value='alterar'>
+        <input type="button" id='btnList' value='listar'>
+    </div>
+</body>
+
+</html>

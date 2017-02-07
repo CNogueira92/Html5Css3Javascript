@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>IDB - NoSQL</title>
+    <meta charset="UTF-8">
+    <script src="../jquery.js"></script>
+
+    <script>
+        if (!window.indexedDB) {
+            alert('Não suporta IdexedDB');
+        }
+
+        // window.indexedDB.deleteDatabase('MyIDb');
+
+        var db;
+        var dbRequest = window.indexedDB.open('MyIDb', 1); //versao e possivel evoluir DB - mudamos a versão quando criamos o indice
+
+        dbRequest.onsuccess = function(e) {
+            db = e.target.result;
+            console.log('OK');
+        }
+
+
+        dbRequest.onerror = function(e) {
+            console.log(e.error);
+        }
+
+        //Atualiza caso a versao esteja desatualizada
+        dbRequest.onupgradeneeded = function(e) {
+            db = e.target.result;
+            console.log('OK');
+
+            var oStore = db.createObjectStore('products', {
+                keyPath: 'id' //define a chave do objeto
+            });
+
+            oStore.createIndex('idxname', 'name', {
+                unique: false
+            });
+        }
+
+
+
+
+        $(document).ready(function() {
+
+            $('#btnAdd').on('click', function() {
+                var key = $('#txtkey').val();
+                var value = $('#txtvalue').val();
+
+                var product = {
+                    id: key,
+                    name: value
+                };
+
+                var transaction = db.transaction('products', 'readwrite');
+
+                var store = transaction.objectStore('products');
+
+                var addRequest = store.add(product);
+
+                addRequest.onsuccess = function(e) {
+                    console.log('ADD ok' + e);
+                }
+
+                addRequest.onerror = function(e) {
+                    console.log('ERRO' + e);
+                }
+
+
+
+            });
+
+            $('#btnList').on('click', function() {
+
+                var transaction = db.transaction('products', 'readonly');
+
+                var store = transaction.objectStore('products');
+
+                var listRequest = store.openCursor();
+
+                listRequest.onsuccess = function(e) {
+                    var cursor = e.target.result;
+                    if (cursor) {
+                        console.log(cursor.value.id + ' - ' + cursor.value.name);
+                        cursor.continue();
+                    }
+                }
+
+                listRequest.onerror = function(e) {
+                    console.log('ERRO' + e);
+                }
+
+            });
+
+            //por nome
+            $('#btnList2').on('click', function() {
+                var value = $('#txtvalue').val();
+
+                var transaction = db.transaction('products', 'readonly');
+
+                var store = transaction.objectStore('products');
+
+                var index = store.index('idxname');
+                var findRequest = index.openCursor(IDBKeyRange.only(value));
+
+
+
+                findRequest.onsuccess = function(e) {
+                    var cursor = e.target.result;
+                    if (cursor) {
+                        console.log(cursor.value.id + ' - ' + cursor.value.name);
+                        cursor.continue();
+                    }
+                }
+
+                findRequest.onerror = function(e) {
+                    console.log('ERRO' + e);
+                }
+
+            });
+
+
+            $('#btnDel').on('click', function() {
+                var key = $('#txtkey').val();
+
+
+                var transaction = db.transaction('products', 'readwrite');
+
+                var store = transaction.objectStore('products');
+
+                var addRequest = store.delete(key);
+
+                addRequest.onsuccess = function(e) {
+                    console.log('Remove ok' + e);
+                }
+
+                addRequest.onerror = function(e) {
+                    console.log('ERRO' + e);
+                }
+
+            });
+
+
+            $('#btnUpd').on('click', function() {
+                var key = $('#txtkey').val();
+                var value = $('#txtvalue').val();
+
+                // var product = {
+                //     id: key,
+                //     name: value
+                // };
+
+                var transaction = db.transaction('products', 'readwrite');
+
+                var store = transaction.objectStore('products');
+
+                var getRequest = store.get(key);
+
+                getRequest.onsuccess = function(e) {
+
+                    console.log('Get ok' + e);
+                    var product = e.target.result;
+                    product.name = value;
+
+                    var addRequest = store.put(product);
+
+                    addRequest.onsuccess = function(e) {
+                        console.log('Att ok' + e);
+                    }
+
+                    addRequest.onerror = function(e) {
+                        console.log('ERRO' + e);
+                    }
+                }
+
+                getRequest.onerror = function(e) {
+                    console.log('ERRO GET' + e);
+                }
+
+
+            });
+
+
+
+            // function getStorage() {
+            //     return localStorage;
+            // }
+        })
+    </script>
+</head>
+
+<body>
+    <div>
+        <input id='txtkey' type="text" placeholder='key'>
+        <input id='txtvalue' type="text" placeholder='value'>
+        <br> <br>
+        <input type="button" id='btnAdd' value='adicionar'>
+        <input type="button" id='btnDel' value='remover'>
+        <input type="button" id='btnUpd' value='alterar'>
+        <input type="button" id='btnList' value='listar'>
+
+        <input type="button" id='btnList2' value='listar'>
+    </div>
+</body>
+
+</html>
