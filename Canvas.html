@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../jquery.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
+
+            // ctx.fillStyle = "red";
+            // ctx.fillRect(10, 10, 100, 50);
+
+
+            // ctx.strokeStyle = "red";
+            // ctx.strokeRect(10, 10, 100, 50);
+
+            // ctx.fillStyle = "blue";
+            // ctx.beginPath();
+            // ctx.moveTo(75, 50);
+            // ctx.lineTo(150, 75);
+            // ctx.lineTo(150, 25);
+            // ctx.fill();
+
+
+            // ctx.strokeStyle = "red";
+            // ctx.beginPath();
+            // ctx.moveTo(0, 0);
+            // ctx.lineTo(200, 100);
+            // ctx.stroke();
+
+            // ctx.beginPath();
+            // ctx.arc(95, 50, 40, 0, 2 * Math.PI); //Arco
+            // ctx.stroke();
+
+            // ctx.fillStyle = "green";
+            // ctx.font = "30px Arial";
+            // ctx.fillText("People Camputação", 50, 50);
+
+
+            // var grad = ctx.createLinearGradient(0, 0, 200, 0);
+            // grad.addColorStop(0, 'blue');
+            // grad.addColorStop(0.5, 'orange');
+            // grad.addColorStop(1, 'red');
+
+            // ctx.fillStyle = grad;
+            // ctx.fillRect(10, 10, 200, 50);
+
+
+            var grad = ctx.createRadialGradient(100, 25, 0, 100, 25, 100);
+            grad.addColorStop(0, 'blue');
+            grad.addColorStop(0.5, 'orange');
+            grad.addColorStop(1, 'red');
+
+            ctx.fillStyle = grad;
+            ctx.fillRect(10, 10, 200, 50);
+
+        });
+    </script>
+</head>
+
+<body>
+    <!--Matricial criou acabou tem que criar de novo não existe elemente/objetos-->
+    <canvas id="myCanvas" width="400" height="400">
+
+  </canvas>
+</body>
+
+</html>
