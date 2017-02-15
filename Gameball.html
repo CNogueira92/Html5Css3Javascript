@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Game Ball</title>
+<!--<script src="https://code.jquery.com/jquery-3.1.1.js"></script>-->
+<script src="jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+$(document).ready(function () {
+var canvas = $("#canvas")[0];
+var ctx = canvas.getContext("2d");
+var w = $("#canvas").width();
+var h = $("#canvas").height();
+var direction = "right";
+var speed = 50;
+var game_loop;
+var ball = { x: 40, y: 40, r: 10, c: "blue" };
+
+function init() {
+direction = "right";
+ball.x = 40;
+ball.y = 40;
+ball.c = "blue";
+speed = 50;
+
+if (typeof game_loop != "undefined") {
+clearInterval(game_loop);
+}
+game_loop = setInterval(paint, speed);
+}
+
+function interval() {
+if (typeof game_loop != "undefined") {
+clearInterval(game_loop);
+}
+game_loop = setInterval(paint, speed);
+}
+
+function stop() {
+if (typeof game_loop != "undefined") {
+clearInterval(game_loop);
+}
+}
+
+function paintBackground() {
+ctx.clearRect(0, 0, w, h);
+ctx.fillStyle = "white";
+ctx.fillRect(0, 0, w, h);
+ctx.strokeStyle = "black";
+ctx.strokeRect(0, 0, w, h);
+}
+
+function paintBall() {
+ctx.fillStyle = ball.c;
+ctx.beginPath();
+ctx.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI);
+ctx.fill();
+}
+
+function moveBall() {
+switch (direction) {
+case "right": { ball.x++; break; }
+case "left": { ball.x--; break; }
+case "up": { ball.y--; break; }
+case "down": { ball.y++; break; }
+}
+}
+
+function checkCollision() {
+if (ball.x + ball.r >= w) {
+return true;
+}
+if (ball.y + ball.r >= h) {
+return true;
+}
+if (ball.x - ball.r <= 0) {
+return true;
+}
+if (ball.y - ball.r <= 0) {
+return true;
+}
+return false;
+}
+
+function paint() {
+
+paintBackground();
+moveBall();
+
+if (checkCollision()) {
+ball.c = "red";
+stop();
+}
+
+paintBall();
+console.log(direction + ' ' + speed);
+}
+
+paint();
+
+$(document).keydown(function (e) {
+var key = e.which;
+if (key == "37") { direction = "left"; }
+else if (key == "38") { direction = "up"; }
+else if (key == "39") { direction = "right"; }
+else if (key == "40") { direction = "down"; }
+else if (key == "13") { init(); }
+else if (key == "27") { stop(); }
+else if (key == "107") { speed -= 10; interval(); }
+else if (key == "109") { speed += 10; speed = speed < 1 ? 40 : speed; interval(); }
+});
+});
+</script>
+<style>
+body {
+overflow: hidden;
+}
+</style>
+</head>
+
+<body>
+<h2>Game Ball</h2>
+<canvas id="canvas" width="500" height="350">
+</canvas>
+</body>
+
+</html>
