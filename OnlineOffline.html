@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>on/off</title>
+      
+     <script src="../Jquery.js"></script> 
+
+     <script>
+        $(document).ready(function(){
+             $(document.body).on('online',function(){
+                 console.log('online ' + navigator.onLine);
+             });
+
+              $(document.body).on('offline',function(){
+                 console.log('offline ' + navigator.onLine);
+             });
+        });
+        </script>
+    </head>
+    <body>
+    <div>
+        
+    </div>
+    </body>
+</html>

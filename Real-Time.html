@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>WebSocket</title>
+      <!--//Http request e reponse-->
+    <!--http não eh full duplex
+    Protocolo WS(websocket) - full duplex-->
+
+     <script src="../Jquery.js"></script> 
+
+     <script>
+        $(document).ready(function(){
+
+              let ws ;
+            if(!window.WebSocket)
+            { alert('Não suporta WebSocket');}
+             
+            $('#btnConectar').on('click', function(){
+                ws = new WebSocket('wss://echo.websocket.org')
+                
+                ws.onclose= function(){
+                    console.log('closed');
+                }
+                
+                ws.onopen= function(){
+                    console.log('opened');
+                }                
+                ws.onmessage= function(evt){
+                    console.log(evt.data);
+                }
+
+                ws.onerror= function(evt){
+                    console.log(evt.data);
+                }
+            })
+
+             $('#btnDesconectar').on('click', function(){
+               if(ws){
+                   ws.close();
+                   ws=null;
+               }
+
+             })
+
+             $('#btnEnviar').on('click', function(){
+                ws.send($('#txtTexto').val()); 
+                $('#txtTexto').val('');
+             })
+        });
+        </script>
+    </head>
+    <body>
+    <div>
+        <input id="txtTexto" type="text" placeholder="Digite o texto">
+        <br>  <br>
+        <button id="btnConectar">Conectar</button>
+        <button id="btnEnviar">Enviar</button>
+        <button id="btnDesconectar">Desconectar</button>
+    </div>
+    </body>
+</html>

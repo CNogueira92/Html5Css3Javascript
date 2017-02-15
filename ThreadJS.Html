@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>web Worker</title>
+      
+     <script src="../Jquery.js"></script> 
+
+     <script>
+        $(document).ready(function(){
+           var wk = null;
+
+           if(typeof(Worker) == 'undefined')
+                alert('não suporta');
+
+
+           $('#btnIniciar').on('click',function(){
+               if(!wk)
+               {
+                   wk = new Worker('worker1.js');
+
+                   wk.onmessage = function(evt){
+                      console.log(evt.data);
+                   }
+               }
+                
+           });
+
+         $('#btnParar').on('click',function(){
+            if(wk)
+               { 
+                   wk.terminate();
+                   ws = null;
+               }
+           });
+
+             $('#btnIncrementar').on('click',function(){
+            if(wk)
+               { 
+                   wk.postMessage(1000);///comunica com a thread
+                   
+               }
+           });
+        });
+        </script>
+    </head>
+    <body>
+    <div>
+        <button id="btnIniciar">Iniciar</button>
+        <button id="btnParar">Parar</button>
+        <button id="btnIncrementar">Incrementar</button>
+    </div>
+    </body>
+</html>
